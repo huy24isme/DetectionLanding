@@ -14,7 +14,7 @@ const steps = [
     name: 'Tiếp nhận giao dịch',
     stage: 'Tiếp nhận',
     title: '01 · Tiếp nhận ngữ cảnh giao dịch',
-    description: 'Hệ thống ghi nhận thông tin giao dịch từ dự án cùng các dữ liệu ngữ cảnh liên quan để phục vụ quá trình đánh giá và rà soát.',
+    description: 'Hệ thống ghi nhận thông tin giao dịch từ doanh nghiệp cùng các dữ liệu ngữ cảnh liên quan để phục vụ quá trình đánh giá và rà soát.',
     cardIndex: 0,
   },
   {
@@ -79,8 +79,8 @@ const detectionModes = {
 const howSteps = [
   {
     number: '1',
-    title: 'Kết nối không gian dự án',
-    description: 'Thiết lập dự án riêng cho doanh nghiệp, gửi giao dịch qua REST API hoặc tải tệp dữ liệu lên môi trường kiểm soát tập trung.',
+    title: 'Khởi tạo workspace doanh nghiệp',
+    description: 'Thiết lập không gian riêng cho doanh nghiệp, gửi giao dịch qua REST API, Webhook hoặc tải tệp dữ liệu lên môi trường kiểm soát tập trung.',
   },
   {
     number: '2',
@@ -109,7 +109,7 @@ const questions = [
   ],
   [
     'Doanh nghiệp cần chuẩn bị gì khi bắt đầu triển khai FraudGuard?',
-    'Doanh nghiệp chỉ cần cung cấp đặc tả các trường dữ liệu giao dịch và nhu cầu kiểm soát rủi ro của dự án. Đội ngũ triển khai sẽ hỗ trợ thiết lập cấu trúc dữ liệu, cấu hình bộ quy tắc trên môi trường kiểm thử (Sandbox) và bàn giao tài khoản vận hành.',
+    'Doanh nghiệp chỉ cần cung cấp đặc tả các trường dữ liệu giao dịch và nhu cầu kiểm soát rủi ro của đơn vị mình. Đội ngũ triển khai sẽ hỗ trợ thiết lập cấu trúc dữ liệu, cấu hình bộ quy tắc trên môi trường kiểm thử (Sandbox) và bàn giao tài khoản vận hành.',
   ],
 ];
 
@@ -222,7 +222,7 @@ export default function Landing() {
             <p className={s.kickerPill}><span className={s.liveDot} aria-hidden="true"/><Shield small/> FraudGuard · Nền tảng kiểm soát rủi ro giao dịch</p>
             <h1 id="hero-heading">Quy trình rõ ràng.<br/><span>Kiểm soát rủi ro liền mạch.</span></h1>
             <p className={s.heroDescription}>
-              Kết nối giám sát giao dịch đa dự án, phát hiện dấu hiệu bất thường và điều tra hồ sơ tập trung trong một luồng xuyên suốt. Mỗi bước đều có bằng chứng đối chiếu, người phụ trách và lịch sử kiểm toán rõ ràng.
+              Kết nối giám sát giao dịch đa kênh, phát hiện dấu hiệu bất thường và điều tra hồ sơ tập trung trong một luồng xuyên suốt. Mỗi bước đều có bằng chứng đối chiếu, người phụ trách và lịch sử kiểm toán rõ ràng.
             </p>
             <div className={s.actions}>
               <a className={s.primary} href="#lien-he">Liên hệ với chúng tôi <Arrow/></a>
@@ -243,7 +243,7 @@ export default function Landing() {
           <p className={s.sectionNumber}>01 / KIẾN TRÚC VẬN HÀNH RỦI RO</p>
           <h2 id="features-heading">Chuẩn hóa đánh giá,<br/><span>vận hành xuyên suốt</span></h2>
           <p className={s.centerSub}>
-            Từ cổng thanh toán, ví điện tử đến đơn hàng COD, mỗi doanh nghiệp có dự án và quy tắc riêng nhưng thống nhất cùng một chuẩn kiểm soát, điều tra và đối soát.
+            Từ cổng thanh toán, ví điện tử đến đơn hàng COD, mỗi doanh nghiệp có tập dữ liệu và quy tắc riêng nhưng thống nhất cùng một chuẩn kiểm soát, điều tra và đối soát.
           </p>
         </div>
 
@@ -267,8 +267,8 @@ export default function Landing() {
           <article className={`${s.featureCard} ${s.revealSlideRight} ${s.delay2}`} data-reveal>
             <div className={s.featureTop}>
               <span className={s.featureNum}>03</span>
-              <h3>Quản lý tập trung nhiều dự án</h3>
-              <p>Cho phép doanh nghiệp tách biệt dữ liệu, cấu hình tích hợp và phạm vi giám sát riêng cho từng kênh thanh toán hoặc dòng sản phẩm trên cùng một nền tảng.</p>
+              <h3>Không gian làm việc đa tenant độc lập</h3>
+              <p>Mỗi doanh nghiệp được cấp một workspace riêng biệt, đảm bảo cô lập dữ liệu hoàn toàn, tự chủ quản trị thành viên nội bộ và thiết lập phạm vi giám sát độc lập.</p>
             </div>
           </article>
 
@@ -330,7 +330,7 @@ export default function Landing() {
                   <span className={s.sheetNum}>01</span>
                   <span>Dữ liệu giao dịch đầu vào</span>
                 </div>
-                <h3>Ngữ cảnh theo từng dự án</h3>
+                <h3>Ngữ cảnh theo từng doanh nghiệp</h3>
                 <p>Tập hợp thông tin giao dịch, kênh phát sinh và các yếu tố liên quan để tạo góc nhìn tổng thể ngay từ đầu.</p>
               </article>
 
@@ -451,7 +451,7 @@ export default function Landing() {
               <p>Hỗ trợ gửi giao dịch qua REST API hoặc nhập tệp CSV/Excel có bước kiểm tra định dạng trường dữ liệu trước khi đánh giá.</p>
               <dl>
                 <div><dt>Phương thức</dt><dd>REST API / CSV / Excel</dd></div>
-                <div><dt>Phạm vi</dt><dd>Theo từng Project của SME</dd></div>
+                <div><dt>Phạm vi</dt><dd>Theo từng Workspace của SME</dd></div>
                 <div><dt>Kiểm tra trước</dt><dd>Đối chiếu trường bắt buộc</dd></div>
               </dl>
             </div>
