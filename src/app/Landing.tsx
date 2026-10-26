@@ -13,29 +13,29 @@ const steps = [
   {
     name: 'Tiếp nhận giao dịch',
     stage: 'Tiếp nhận',
-    title: '01 · Tiếp nhận ngữ cảnh giao dịch',
-    description: 'Hệ thống ghi nhận thông tin giao dịch từ doanh nghiệp cùng các dữ liệu ngữ cảnh liên quan để phục vụ quá trình đánh giá và rà soát.',
+    title: '01 · Tiếp nhận thông tin giao dịch',
+    description: 'Hệ thống tự động ghi nhận thông tin đơn hàng, số tiền, kênh thanh toán và thời gian giao dịch của doanh nghiệp để chuẩn bị kiểm tra.',
     cardIndex: 0,
   },
   {
-    name: 'Bằng chứng kích hoạt',
+    name: 'Dấu hiệu nghi vấn',
     stage: 'Đã phân công',
-    title: '02 · Tổng hợp dấu hiệu & phân công xử lý',
-    description: 'Khi phát hiện dấu hiệu bất thường, cảnh báo được chuyển thành hồ sơ điều tra kèm đầy đủ lý do kích hoạt và giao cho nhân sự phụ trách.',
+    title: '02 · Tổng hợp dấu hiệu & giao việc',
+    description: 'Khi phát hiện điểm nghi vấn, hệ thống tự động gom các dấu hiệu cảnh báo vào hồ sơ và giao cho nhân viên phụ trách kiểm tra.',
     cardIndex: 1,
   },
   {
-    name: 'Báo cáo điều tra',
-    stage: 'Chờ phê duyệt',
-    title: '03 · Xác minh thực tế & gửi báo cáo đề xuất',
-    description: 'Nhân sự điều tra kiểm tra các bằng chứng liên quan, ghi nhận kết quả xác minh và gửi đề xuất xử lý lên cấp phê duyệt.',
+    name: 'Báo cáo xác minh',
+    stage: 'Chờ duyệt',
+    title: '03 · Kiểm tra thực tế & gửi đề xuất',
+    description: 'Nhân viên đối chiếu thông tin khách hàng, ghi lại kết quả kiểm tra thực tế và gửi đề xuất xử lý lên cấp quản lý.',
     cardIndex: 2,
   },
   {
-    name: 'Phê duyệt & Lưu vết',
+    name: 'Phê duyệt & Lưu trữ',
     stage: 'Hoàn tất',
-    title: '04 · Phê duyệt kết luận & lưu nhật ký hệ thống',
-    description: 'Cấp quản lý vận hành rà soát báo cáo đề xuất, đưa ra quyết định xử lý cuối cùng và hệ thống tự động lưu lại lịch sử thao tác.',
+    title: '04 · Quản lý phê duyệt & lưu vào hệ thống',
+    description: 'Cấp quản lý xem xét đề xuất, đưa ra quyết định xử lý cuối cùng và hệ thống tự động lưu trữ kết quả để tra cứu về sau.',
     cardIndex: 3,
   },
 ];
@@ -43,35 +43,35 @@ const steps = [
 const detectionModes = {
   AI: {
     badge: 'AI',
-    label: 'AI Detection',
-    title: 'AI Detection + Giải thích nguyên nhân',
-    description: 'Dành cho doanh nghiệp gói Subscription. Mô hình AI phân loại giao dịch Bất thường (Abnormal) hoặc Bình thường (Normal), kèm độ tin cậy (Confidence) và giải thích các dấu hiệu rủi ro.',
+    label: 'Trí tuệ nhân tạo (AI)',
+    title: 'Phát hiện bằng AI + Giải thích lý do',
+    description: 'Dành cho gói Nâng cao. AI tự động phân tích hành vi phức tạp để nhận diện giao dịch Bất thường hay Bình thường, kèm mức độ tin cậy và giải thích rõ vì sao nghi vấn.',
     signals: [
-      ['Kết quả đánh giá', 'Abnormal (Bất thường)'],
-      ['Độ tin cậy mô hình', '91% (Confidence)'],
-      ['Bằng chứng đi kèm', 'Giải thích AI + tín hiệu kích hoạt'],
+      ['Kết quả kiểm tra', 'Bất thường (Cần lưu ý)'],
+      ['Độ tin cậy của AI', '91% (Rất đáng ngờ)'],
+      ['Căn cứ kèm theo', 'Giải thích chi tiết các điểm bất thường'],
     ],
   },
   RULE: {
-    badge: 'RULE',
-    label: 'Dynamic Rule Engine',
-    title: 'Bộ quy tắc động theo tổ hợp điều kiện AND / OR',
-    description: 'Đối chiếu trực tiếp các trường giao dịch với bộ quy tắc đã phát hành (Published) của doanh nghiệp. Trả về danh sách quy tắc khớp (Matched) và giá trị quan sát thực tế (ruleEvidence).',
+    badge: 'QUY TẮC',
+    label: 'Bộ quy tắc tự động',
+    title: 'Kiểm tra theo các điều kiện đặt trước',
+    description: 'Tự động so sánh thông tin giao dịch với các điều kiện kinh doanh do doanh nghiệp đặt ra (ví dụ: đơn hàng vượt hạn mức, đặt nhiều lần liên tiếp).',
     signals: [
-      ['Kết quả đánh giá', 'Abnormal / Normal / Undetermined'],
-      ['Cấu trúc điều kiện', 'Nhóm logic AND / OR lồng nhau'],
-      ['Bằng chứng đi kèm', 'Mã quy tắc + giá trị quan sát'],
+      ['Kết quả kiểm tra', 'Bất thường / Bình thường / Chưa rõ'],
+      ['Cách thức kiểm tra', 'So khớp điều kiện đặt sẵn'],
+      ['Căn cứ kèm theo', 'Danh sách điều kiện đã vi phạm'],
     ],
   },
   RULE_FALLBACK: {
-    badge: 'RULE_FALLBACK',
-    label: 'Khi AI gián đoạn',
-    title: 'Tự động chuyển sang Rule Engine dự phòng',
-    description: 'Khi dịch vụ AI tạm thời không khả dụng, hệ thống tự động định tuyến giao dịch sang bộ quy tắc đã phát hành của doanh nghiệp và gắn nhãn RULE_FALLBACK để minh bạch nguồn xử lý.',
+    badge: 'DỰ PHÒNG',
+    label: 'Khi AI gặp sự cố',
+    title: 'Tự động chuyển sang quy tắc dự phòng',
+    description: 'Nếu dịch vụ AI tạm thời gián đoạn, hệ thống tự động dùng bộ quy tắc của doanh nghiệp để kiểm tra, đảm bảo công việc kinh doanh không bao giờ bị ngừng trệ.',
     signals: [
-      ['Nhãn nguồn xử lý', 'RULE_FALLBACK (Hiển thị rõ)'],
-      ['Tính liên tục', 'Không làm gián đoạn luồng giao dịch'],
-      ['Bằng chứng đi kèm', 'Quy tắc dự phòng đã kích hoạt'],
+      ['Phương thức áp dụng', 'Quy tắc dự phòng (Ghi rõ nguồn)'],
+      ['Tính ổn định', 'Giao dịch được kiểm tra liên tục'],
+      ['Căn cứ kèm theo', 'Quy tắc dự phòng đã kích hoạt'],
     ],
   },
 };
@@ -79,37 +79,37 @@ const detectionModes = {
 const howSteps = [
   {
     number: '1',
-    title: 'Khởi tạo workspace doanh nghiệp',
-    description: 'Thiết lập không gian riêng cho doanh nghiệp, gửi giao dịch qua REST API, Webhook hoặc tải tệp dữ liệu lên môi trường kiểm soát tập trung.',
+    title: 'Khởi tạo không gian làm việc',
+    description: 'Thiết lập khu vực riêng cho doanh nghiệp, kết nối nhận dữ liệu tự động hoặc tải tệp giao dịch lên hệ thống.',
   },
   {
     number: '2',
-    title: 'AI & Rule phân tích giao dịch',
-    description: 'Hệ thống đối chiếu giao dịch với mô hình AI Detection và bộ quy tắc động, trả về trạng thái phân loại kèm bằng chứng kích hoạt rõ ràng.',
+    title: 'Hệ thống tự động kiểm tra',
+    description: 'Hệ thống đối chiếu giao dịch qua AI và bộ quy tắc, phân loại kết quả và gửi thông báo nếu có dấu hiệu bất thường.',
   },
   {
     number: '3',
-    title: 'Điều tra & phê duyệt kết quả',
-    description: 'Cảnh báo bất thường được chuyển thành hồ sơ để điều tra viên xác minh thực tế và cấp quản lý vận hành phê duyệt quyết định cuối cùng.',
+    title: 'Xác minh & duyệt quyết định',
+    description: 'Nhân viên kiểm tra bằng chứng thực tế, ghi lại ý kiến và cấp quản lý phê duyệt hướng xử lý cuối cùng.',
   },
 ];
 
 const questions = [
   [
-    'FraudGuard phân loại trạng thái giao dịch như thế nào?',
-    'Hệ thống phân loại trực tiếp giao dịch thành Bất thường (Abnormal), Bình thường (Normal) hoặc Chưa xác định (Undetermined). Với gói AI Detection, kết quả đi kèm độ tin cậy (Confidence) và giải thích; với bộ quy tắc, kết quả đi kèm danh sách quy tắc khớp (Matched) và giá trị quan sát thực tế (ruleEvidence).',
+    'FraudGuard phân loại giao dịch như thế nào?',
+    'Hệ thống tự động xếp giao dịch vào 3 nhóm: Bất thường, Bình thường hoặc Chưa rõ. Với gói AI, hệ thống chỉ rõ mức độ tin cậy và lý do nghi vấn; với gói quy tắc, hệ thống cho biết chính xác giao dịch đã vi phạm điều kiện nào do bạn thiết lập.',
   ],
   [
-    'Ai là người cấu hình quy tắc và ai là người kết luận gian lận?',
-    'Theo kiến trúc phân quyền, Nhân viên triển khai (Implementation Staff) tiếp nhận đặc tả của doanh nghiệp để cấu hình, kiểm thử Sandbox và phát hành bộ quy tắc. Trong vận hành hằng ngày, Điều tra viên (Investigator) xác minh bằng chứng và gửi báo cáo để Trưởng nhóm vận hành (Operator) phê duyệt kết luận cuối cùng.',
+    'Ai là người thiết lập quy tắc và ai ra quyết định xử lý?',
+    'Đội ngũ kỹ thuật sẽ hỗ trợ doanh nghiệp cài đặt và kiểm tra thử các quy tắc ban đầu. Trong công việc hằng ngày, nhân viên phụ trách sẽ kiểm tra thông tin thực tế và gửi báo cáo để cấp quản lý đưa ra quyết định xử lý cuối cùng.',
   ],
   [
-    'Nếu dịch vụ AI tạm thời gián đoạn thì giao dịch được xử lý thế nào?',
-    'Đối với doanh nghiệp dùng gói Subscription, khi dịch vụ AI không khả dụng, hệ thống tự động chuyển sang đánh giá bằng bộ quy tắc động đã phát hành của doanh nghiệp đó. Kết quả được gắn nhãn RULE_FALLBACK để nhân sự phân biệt rõ với kết quả do AI phát hiện.',
+    'Nếu dịch vụ AI tạm thời gián đoạn thì giao dịch được xử lý ra sao?',
+    'Hệ thống sẽ tự động chuyển sang kiểm tra bằng bộ quy tắc thông thường của doanh nghiệp, giúp việc kiểm soát đơn hàng luôn liên tục mà không bao giờ bị ngắt quãng.',
   ],
   [
-    'Doanh nghiệp cần chuẩn bị gì khi bắt đầu triển khai FraudGuard?',
-    'Doanh nghiệp chỉ cần cung cấp đặc tả các trường dữ liệu giao dịch và nhu cầu kiểm soát rủi ro của đơn vị mình. Đội ngũ triển khai sẽ hỗ trợ thiết lập cấu trúc dữ liệu, cấu hình bộ quy tắc trên môi trường kiểm thử (Sandbox) và bàn giao tài khoản vận hành.',
+    'Doanh nghiệp cần chuẩn bị những gì khi bắt đầu sử dụng?',
+    'Doanh nghiệp chỉ cần cho biết những thông tin giao dịch cần theo dõi và các rủi ro hay gặp. Đội ngũ kỹ thuật sẽ hỗ trợ thiết lập, chạy thử nghiệm trên dữ liệu mẫu và bàn giao tài khoản sử dụng ngay.',
   ],
 ];
 
@@ -222,16 +222,16 @@ export default function Landing() {
             <p className={s.kickerPill}><span className={s.liveDot} aria-hidden="true"/><Shield small/> FraudGuard · Nền tảng kiểm soát rủi ro giao dịch</p>
             <h1 id="hero-heading">Quy trình rõ ràng.<br/><span>Kiểm soát rủi ro liền mạch.</span></h1>
             <p className={s.heroDescription}>
-              Kết nối giám sát giao dịch đa kênh, phát hiện dấu hiệu bất thường và điều tra hồ sơ tập trung trong một luồng xuyên suốt. Mỗi bước đều có bằng chứng đối chiếu, người phụ trách và lịch sử kiểm toán rõ ràng.
+              Kết nối theo dõi giao dịch đa kênh, nhận diện sớm dấu hiệu bất thường và xử lý hồ sơ tập trung trong một quy trình thống nhất. Mọi bước đều có bằng chứng rõ ràng, người chịu trách nhiệm và lịch sử ghi nhận đầy đủ.
             </p>
             <div className={s.actions}>
               <a className={s.primary} href="#lien-he">Liên hệ với chúng tôi <Arrow/></a>
               <a className={s.secondary} href="#ho-so">Xem luồng hồ sơ điều tra</a>
             </div>
             <div className={s.heroHighlights} aria-label="Nguyên tắc cốt lõi">
-              <div className={s.heroHighlightItem}><Check/> <span>Phân loại giao dịch rõ nguồn</span></div>
-              <div className={s.heroHighlightItem}><Check/> <span>Bằng chứng gắn chặt từng hồ sơ</span></div>
-              <div className={s.heroHighlightItem}><Check/> <span>Phối hợp điều tra &amp; phê duyệt minh bạch</span></div>
+              <div className={s.heroHighlightItem}><Check/> <span>Phân loại giao dịch rõ ràng</span></div>
+              <div className={s.heroHighlightItem}><Check/> <span>Bằng chứng gắn liền từng hồ sơ</span></div>
+              <div className={s.heroHighlightItem}><Check/> <span>Phối hợp xác minh &amp; phê duyệt minh bạch</span></div>
             </div>
           </div>
         </section>
@@ -240,10 +240,10 @@ export default function Landing() {
       <section className={`${s.sectionPastelWarm} ${s.scrollSection}`} data-scroll-section id="tinh-nang" aria-labelledby="features-heading">
         <div className={s.container}>
         <div className={`${s.centerHeader} ${s.revealFadeBlur}`} data-reveal>
-          <p className={s.sectionNumber}>01 / KIẾN TRÚC VẬN HÀNH RỦI RO</p>
-          <h2 id="features-heading">Chuẩn hóa đánh giá,<br/><span>vận hành xuyên suốt</span></h2>
+          <p className={s.sectionNumber}>01 / QUY TRÌNH KIỂM SOÁT RỦI RO</p>
+          <h2 id="features-heading">Đánh giá chuẩn xác,<br/><span>vận hành xuyên suốt</span></h2>
           <p className={s.centerSub}>
-            Từ cổng thanh toán, ví điện tử đến đơn hàng COD, mỗi doanh nghiệp có tập dữ liệu và quy tắc riêng nhưng thống nhất cùng một chuẩn kiểm soát, điều tra và đối soát.
+            Từ cổng thanh toán, ví điện tử đến đơn hàng giao tận nơi (COD), mỗi doanh nghiệp đều có quy tắc riêng nhưng chung một quy trình kiểm soát, rà soát và đối chiếu minh bạch.
           </p>
         </div>
 
@@ -251,8 +251,8 @@ export default function Landing() {
           <article className={`${s.featureCard} ${s.revealSlideLeft}`} data-reveal>
             <div className={s.featureTop}>
               <span className={s.featureNum}>01</span>
-              <h3>Phân loại trạng thái giao dịch rõ ràng</h3>
-              <p>Đánh giá và phân loại từng giao dịch theo các mức trạng thái trực diện, kèm theo lý do và dấu hiệu cụ thể để nhân sự dễ dàng đối chiếu.</p>
+              <h3>Phân loại kết quả giao dịch rõ ràng</h3>
+              <p>Tự động phân loại từng giao dịch thành Bình thường, Bất thường hoặc Cần kiểm tra thêm, kèm theo lý do và dấu hiệu cụ thể để nhân viên dễ dàng đối chiếu.</p>
             </div>
           </article>
 
@@ -260,7 +260,7 @@ export default function Landing() {
             <div className={s.featureTop}>
               <span className={s.featureNum}>02</span>
               <h3>Kết hợp AI và bộ quy tắc linh hoạt</h3>
-              <p>Vận hành song song mô hình phát hiện bất thường bằng AI và bộ quy tắc điều kiện động, đồng thời duy trì luồng đánh giá liên tục khi có sự cố dịch vụ.</p>
+              <p>Áp dụng công nghệ trí tuệ nhân tạo (AI) cùng các quy tắc do doanh nghiệp đặt ra, tự động chuyển đổi phương án dự phòng để quy trình đánh giá không bao giờ bị gián đoạn.</p>
             </div>
           </article>
 
@@ -268,31 +268,31 @@ export default function Landing() {
             <div className={s.featureTop}>
               <span className={s.featureNum}>03</span>
               <h3>Không gian làm việc đa tenant độc lập</h3>
-              <p>Mỗi doanh nghiệp được cấp một workspace riêng biệt, đảm bảo cô lập dữ liệu hoàn toàn, tự chủ quản trị thành viên nội bộ và thiết lập phạm vi giám sát độc lập.</p>
+              <p>Mỗi doanh nghiệp sở hữu một khu vực làm việc riêng biệt, dữ liệu được bảo mật tách biệt hoàn toàn, tự quản lý nhân viên và thiết lập phạm vi theo dõi riêng.</p>
             </div>
           </article>
 
           <article className={`${s.featureCard} ${s.revealSlideLeft}`} data-reveal>
             <div className={s.featureTop}>
               <span className={s.featureNum}>04</span>
-              <h3>Kiểm thử quy tắc an toàn trước khi áp dụng</h3>
-              <p>Hỗ trợ thiết lập, rà soát và chạy thử nghiệm quy tắc mới trên môi trường kiểm thử độc lập trước khi đưa vào vận hành chính thức.</p>
+              <h3>Chạy thử an toàn trước khi áp dụng thực tế</h3>
+              <p>Cho phép thiết lập và kiểm tra thử nghiệm các quy tắc kiểm soát trên dữ liệu mẫu trước khi đưa vào hoạt động chính thức, tránh chặn nhầm khách hàng.</p>
             </div>
           </article>
 
           <article className={`${s.featureCard} ${s.revealFadeUp} ${s.delay1}`} data-reveal>
             <div className={s.featureTop}>
               <span className={s.featureNum}>05</span>
-              <h3>Quy trình điều tra và phê duyệt hai cấp</h3>
-              <p>Tách bạch rõ vai trò giữa người xác minh bằng chứng thực tế và người rà soát, phê duyệt kết luận cuối cùng trên từng hồ sơ.</p>
+              <h3>Quy trình xác minh và phê duyệt hai bước</h3>
+              <p>Phân định rõ trách nhiệm giữa nhân viên kiểm tra bằng chứng thực tế và cấp quản lý phê duyệt quyết định cuối cùng trên từng trường hợp nghi vấn.</p>
             </div>
           </article>
 
           <article className={`${s.featureCard} ${s.revealSlideRight} ${s.delay2}`} data-reveal>
             <div className={s.featureTop}>
               <span className={s.featureNum}>06</span>
-              <h3>Lưu vết lịch sử thao tác minh bạch</h3>
-              <p>Ghi nhận đầy đủ toàn bộ quá trình xử lý hồ sơ, thay đổi cấu hình và quyết định nghiệp vụ nhằm phục vụ kiểm tra, đối soát nội bộ.</p>
+              <h3>Ghi nhận lịch sử xử lý minh bạch</h3>
+              <p>Lưu lại toàn bộ lịch sử thao tác, từ thay đổi cài đặt đến người đưa ra quyết định xử lý, giúp việc kiểm tra và đối chiếu nội bộ luôn rõ ràng.</p>
             </div>
           </article>
         </div>
@@ -303,9 +303,9 @@ export default function Landing() {
         <div className={s.container}>
           <div className={`${s.centerHeader} ${s.revealFadeBlur}`} data-reveal>
             <p className={s.sectionNumber}>02 / QUẢN LÝ HỒ SƠ TẬP TRUNG</p>
-            <h2 id="story-heading">Một hồ sơ điều tra,<br/><span>toàn bộ bối cảnh trên một màn hình</span></h2>
+            <h2 id="story-heading">Một hồ sơ xử lý,<br/><span>toàn bộ thông tin trên một màn hình</span></h2>
             <p className={s.centerSub}>
-              Từ lúc phát sinh cảnh báo đến khi đóng hồ sơ, nhân sự vận hành và điều tra viên làm việc trên cùng một hồ sơ thống nhất, không thất lạc bằng chứng.
+              Từ lúc phát hiện giao dịch bất thường đến khi kết luận, nhân viên kiểm tra và cấp quản lý đều xem chung một hồ sơ thống nhất, không sợ thất lạc thông tin.
             </p>
           </div>
 
@@ -328,42 +328,42 @@ export default function Landing() {
               <article onClick={() => setStep(0)} className={`${s.caseSheet} ${currentStep.cardIndex === 0 ? s.caseSheetActive : ''}`}>
                 <div className={s.sheetHeader}>
                   <span className={s.sheetNum}>01</span>
-                  <span>Dữ liệu giao dịch đầu vào</span>
+                  <span>Thông tin giao dịch ban đầu</span>
                 </div>
-                <h3>Ngữ cảnh theo từng doanh nghiệp</h3>
-                <p>Tập hợp thông tin giao dịch, kênh phát sinh và các yếu tố liên quan để tạo góc nhìn tổng thể ngay từ đầu.</p>
+                <h3>Thông tin ban đầu từ doanh nghiệp</h3>
+                <p>Tập hợp thông tin giao dịch, kênh thanh toán và các yếu tố liên quan để nhân viên có cái nhìn tổng quát ngay từ đầu.</p>
               </article>
 
               <article onClick={() => setStep(1)} className={`${s.caseSheet} ${currentStep.cardIndex === 1 ? s.caseSheetActive : ''}`}>
                 <div className={s.sheetHeader}>
                   <span className={s.sheetNum}>02</span>
-                  <span>Bằng chứng kích hoạt</span>
+                  <span>Dấu hiệu cảnh báo</span>
                 </div>
                 <h3>Lý do giao dịch cần kiểm tra</h3>
-                <p>Hiển thị rõ các điều kiện hoặc dấu hiệu rủi ro đã kích hoạt cảnh báo trước khi phân công cho nhân sự điều tra.</p>
+                <p>Hiển thị rõ các dấu hiệu bất thường hoặc điều kiện cảnh báo để nhân viên biết chính xác vì sao giao dịch cần được xem xét.</p>
               </article>
             </div>
 
             <div className={`${s.hubCenter} ${s.revealZoomIn} ${s.delay1}`} data-reveal>
               <div className={s.hubTop}>
-                <span className={s.hubCode}>Hồ sơ điều tra tập trung · Luồng xử lý 4 bước</span>
+                <span className={s.hubCode}>Hồ sơ xử lý tập trung · Quy trình 4 bước</span>
                 <span className={s.sourceLabel}>{currentStep.stage}</span>
               </div>
-              <h3>Liên kết xuyên suốt từ cảnh báo ban đầu đến quyết định xử lý cuối cùng</h3>
+              <h3>Liên kết xuyên suốt từ lúc phát hiện nghi vấn đến quyết định xử lý cuối cùng</h3>
 
               <div className={s.hubMetaGrid}>
                 <div className={s.hubMetaItem}>
-                  <span>CẤP XÁC MINH</span>
-                  <strong>Nhân sự điều tra (Investigator)</strong>
+                  <span>NGƯỜI XÁC MINH</span>
+                  <strong>Nhân viên kiểm tra</strong>
                 </div>
                 <div className={s.hubMetaItem}>
-                  <span>CẤP PHÊ DUYỆT</span>
-                  <strong>Quản lý vận hành (Operator)</strong>
+                  <span>NGƯỜI PHÊ DUYỆT</span>
+                  <strong>Quản lý vận hành</strong>
                 </div>
               </div>
 
               <div className={s.stepperTrack} aria-label="Tiến trình hồ sơ">
-                {['Tiếp nhận', 'Phân công', 'Báo cáo', 'Kết luận'].map((label, idx) => (
+                {['Tiếp nhận', 'Giao việc', 'Báo cáo', 'Kết luận'].map((label, idx) => (
                   <div
                     key={label}
                     onClick={() => setStep(idx)}
@@ -397,19 +397,19 @@ export default function Landing() {
               <article onClick={() => setStep(2)} className={`${s.caseSheet} ${currentStep.cardIndex === 2 ? s.caseSheetActive : ''}`}>
                 <div className={s.sheetHeader}>
                   <span className={s.sheetNum}>03</span>
-                  <span>Báo cáo điều tra</span>
+                  <span>Báo cáo xác minh</span>
                 </div>
-                <h3>Đề xuất kết luận có căn cứ</h3>
-                <p>Nhân sự điều tra ghi nhận kết quả xác minh thực tế, đính kèm nhận định và gửi đề xuất xử lý lên cấp quản lý.</p>
+                <h3>Đề xuất phương án có căn cứ</h3>
+                <p>Nhân viên ghi lại kết quả kiểm tra thực tế, đính kèm nhận định và gửi đề xuất phương án xử lý lên người quản lý.</p>
               </article>
 
               <article onClick={() => setStep(3)} className={`${s.caseSheet} ${currentStep.cardIndex === 3 ? s.caseSheetActive : ''}`}>
                 <div className={s.sheetHeader}>
                   <span className={s.sheetNum}>04</span>
-                  <span>Phê duyệt &amp; Lưu vết hệ thống</span>
+                  <span>Quyết định &amp; Lưu lịch sử</span>
                 </div>
-                <h3>Chốt quyết định và lưu lịch sử</h3>
-                <p>Cấp quản lý phê duyệt phương án xử lý cuối cùng; mọi thao tác cập nhật đều được ghi nhận tự động vào nhật ký hệ thống.</p>
+                <h3>Chốt phương án và lưu trữ hệ thống</h3>
+                <p>Người quản lý duyệt quyết định xử lý cuối cùng; mọi thao tác và thời gian đều được lưu tự động để tra cứu đối soát khi cần.</p>
               </article>
             </div>
           </div>
@@ -419,10 +419,10 @@ export default function Landing() {
       <section className={`${s.sectionPastelWarm} ${s.scrollSection}`} data-scroll-section id="co-che" aria-labelledby="detection-heading">
         <div className={s.container}>
         <div className={`${s.centerHeader} ${s.revealFadeBlur}`} data-reveal>
-          <p className={s.sectionNumber}>03 / CƠ CHẾ ĐÁNH GIÁ &amp; DỰ PHÒNG</p>
-          <h2 id="detection-heading">Kết quả phân loại rõ ràng.<br/><span>Có nguồn. Có bằng chứng.</span></h2>
+          <p className={s.sectionNumber}>03 / CÁCH HỆ THỐNG PHÁT HIỆN GIAN LẬN</p>
+          <h2 id="detection-heading">Kết quả kiểm tra rõ ràng.<br/><span>Có căn cứ. Có giải thích.</span></h2>
           <p className={s.centerSub}>
-            Biết chính xác giao dịch được đánh giá bởi mô hình AI Detection, bộ quy tắc động hay cơ chế dự phòng (Rule Fallback) trước khi đưa ra quyết định nghiệp vụ.
+            Biết chính xác giao dịch được phát hiện nhờ trí tuệ nhân tạo (AI), bộ quy tắc kiểm tra tự động hay phương án dự phòng trước khi đưa ra quyết định.
           </p>
         </div>
 
@@ -445,14 +445,14 @@ export default function Landing() {
             <div className={`${s.caseSheet} ${s.detectColLeft} ${s.revealSlideLeft}`} data-reveal>
               <div className={s.sheetHeader}>
                 <span className={s.sheetNum}>Đầu vào</span>
-                <span>Ingestion &amp; Schema</span>
+                <span>Cách nhận dữ liệu</span>
               </div>
-              <h3>Tiếp nhận giao dịch đa kênh</h3>
-              <p>Hỗ trợ gửi giao dịch qua REST API hoặc nhập tệp CSV/Excel có bước kiểm tra định dạng trường dữ liệu trước khi đánh giá.</p>
+              <h3>Nhận giao dịch từ nhiều kênh</h3>
+              <p>Hỗ trợ kết nối tự động từ website, ứng dụng hoặc tải lên bằng tệp Excel/CSV, hệ thống tự kiểm tra định dạng trước khi xử lý.</p>
               <dl>
-                <div><dt>Phương thức</dt><dd>REST API / CSV / Excel</dd></div>
-                <div><dt>Phạm vi</dt><dd>Theo từng Workspace của SME</dd></div>
-                <div><dt>Kiểm tra trước</dt><dd>Đối chiếu trường bắt buộc</dd></div>
+                <div><dt>Cách kết nối</dt><dd>Tự động (API) / Tệp Excel / CSV</dd></div>
+                <div><dt>Phạm vi</dt><dd>Không gian riêng của doanh nghiệp</dd></div>
+                <div><dt>Kiểm tra trước</dt><dd>Tự động kiểm tra tính hợp lệ</dd></div>
               </dl>
             </div>
 
@@ -480,14 +480,14 @@ export default function Landing() {
             <div className={`${s.caseSheet} ${s.detectColRight} ${s.revealSlideRight} ${s.delay2}`} data-reveal>
               <div className={s.sheetHeader}>
                 <span className={s.sheetNum}>Đầu ra</span>
-                <span>Alert &amp; Case Queue</span>
+                <span>Thông báo &amp; Hồ sơ</span>
               </div>
               <h3>Hỗ trợ con người ra quyết định</h3>
-              <p>Giao dịch Bất thường (Abnormal) sinh cảnh báo kèm bằng chứng để Operator và Investigator xử lý, không tự động hủy giao dịch của khách hàng.</p>
+              <p>Khi phát hiện giao dịch bất thường, hệ thống tạo thông báo cảnh báo kèm căn cứ để con người xử lý, tuyệt đối không tự ý hủy đơn làm mất khách.</p>
               <dl>
-                <div><dt>Khi Abnormal</dt><dd>Sinh Alert &amp; đưa vào Queue</dd></div>
-                <div><dt>Bằng chứng</dt><dd>Lưu kèm hồ sơ điều tra</dd></div>
-                <div><dt>Kết luận cuối</dt><dd>Thuộc về nhân sự phụ trách</dd></div>
+                <div><dt>Khi có bất thường</dt><dd>Tạo thông báo &amp; đưa vào danh sách chờ</dd></div>
+                <div><dt>Căn cứ kèm theo</dt><dd>Đính kèm đầy đủ vào hồ sơ</dd></div>
+                <div><dt>Quyết định cuối</dt><dd>Do người phụ trách đưa ra</dd></div>
               </dl>
             </div>
           </div>
@@ -501,7 +501,7 @@ export default function Landing() {
             <p className={s.sectionNumber}>04 / QUY TRÌNH VẬN HÀNH</p>
             <h2 id="roles-heading">Cách FraudGuard hoạt động</h2>
             <p className={s.centerSub}>
-              Ba bước từ khi tiếp nhận dữ liệu giao dịch đến kết quả điều tra có bằng chứng kiểm chứng được.
+              Ba bước đơn giản từ khi nhận thông tin giao dịch đến kết quả xác minh rõ ràng, có căn cứ.
             </p>
           </div>
 
@@ -526,10 +526,10 @@ export default function Landing() {
 
       <section className={`${s.container} ${s.section} ${s.plans} ${s.scrollSection}`} data-scroll-section id="goi-su-dung" aria-labelledby="plans-heading">
         <div className={`${s.planIntro} ${s.revealSlideLeft}`} data-reveal>
-          <p className={s.sectionNumber}>05 / PHƯƠNG ÁN SỬ DỤNG</p>
-          <h2 id="plans-heading">Chọn cơ chế đánh giá<br/><span>phù hợp với doanh nghiệp.</span></h2>
-          <p>Hai phương án theo kiến trúc hệ thống FraudGuard. Doanh nghiệp có thể bắt đầu với bộ quy tắc động hoặc sử dụng AI Detection kèm cơ chế dự phòng Rule Fallback.</p>
-          <a className={s.textLink} href="#lien-he">Liên hệ với chúng tôi <Arrow/></a>
+          <p className={s.sectionNumber}>05 / CÁC GÓI SỬ DỤNG</p>
+          <h2 id="plans-heading">Chọn phương án kiểm soát<br/><span>phù hợp với quy mô kinh doanh</span></h2>
+          <p>Doanh nghiệp có thể bắt đầu với gói cơ bản dùng bộ quy tắc tự động hoặc nâng cấp lên gói AI có sẵn phương án dự phòng liên tục.</p>
+          <a className={s.textLink} href="#lien-he">Liên hệ để được tư vấn gói phù hợp <Arrow/></a>
         </div>
 
         <div className={`${s.planTableWrap} ${s.revealSlideRight} ${s.delay1}`} data-reveal>
@@ -537,18 +537,18 @@ export default function Landing() {
             <caption className={s.srOnly}>So sánh hai phương án Free và Subscription theo đặc tả FraudGuard</caption>
             <thead>
               <tr>
-                <th scope="col">Khả năng</th>
-                <th scope="col"><span>Free</span>Dynamic Rule Engine</th>
-                <th scope="col"><span>Subscription</span>AI Detection + Fallback</th>
+                <th scope="col">Tính năng</th>
+                <th scope="col"><span>Gói Cơ bản (Miễn phí)</span>Bộ quy tắc tự động</th>
+                <th scope="col"><span>Gói Nâng cao (Đăng ký)</span>AI thông minh + Quy tắc dự phòng</th>
               </tr>
             </thead>
             <tbody>
               {[
-                ['Cơ chế đánh giá chính', 'Bộ quy tắc động', 'Mô hình AI kết hợp bộ quy tắc'],
-                ['Kết quả phân loại', 'Abnormal / Normal / Undetermined', 'Abnormal / Normal + Độ tin cậy AI'],
-                ['Bằng chứng đi kèm', 'Quy tắc khớp & giá trị quan sát (ruleEvidence)', 'Giải thích từ AI & tín hiệu kích hoạt'],
-                ['Khi dịch vụ AI gián đoạn', 'Không áp dụng', 'Tự động chuyển sang RULE_FALLBACK'],
-                ['Quản lý hồ sơ (Operator & Investigator)', 'Đầy đủ luồng Case Queue & My Cases', 'Đầy đủ luồng Case Queue & My Cases'],
+                ['Phương thức kiểm tra chính', 'Bộ quy tắc do bạn đặt ra', 'Mô hình AI kết hợp bộ quy tắc thông minh'],
+                ['Kết quả phân loại', 'Bình thường / Bất thường / Chưa rõ', 'Bình thường / Bất thường + Độ tin cậy của AI'],
+                ['Căn cứ và giải thích', 'Chỉ rõ quy tắc nào bị vi phạm', 'Giải thích chi tiết các điểm đáng ngờ bằng AI'],
+                ['Khi hệ thống AI gặp sự cố', 'Không áp dụng', 'Tự động chuyển sang quy tắc dự phòng'],
+                ['Quy trình phối hợp xử lý hồ sơ', 'Đầy đủ danh sách chờ và phân công xử lý', 'Đầy đủ danh sách chờ và phân công xử lý'],
               ].map(row => (
                 <tr key={row[0]}>
                   <th scope="row">{row[0]}</th>
@@ -565,8 +565,8 @@ export default function Landing() {
         <div className={`${s.container} ${s.faqWrap}`}>
           <div className={`${s.centerHeader} ${s.revealFadeBlur}`} data-reveal>
             <p className={s.sectionNumber}>06 / CÂU HỎI THƯỜNG GẶP</p>
-            <h2 id="faq-heading">Những điều bạn cần biết<br/><span>về FraudGuard</span></h2>
-            <p className={s.centerSub}>Giải đáp về cơ chế phân loại bất thường, quy trình phối hợp và phương thức triển khai cho doanh nghiệp.</p>
+            <h2 id="faq-heading">Giải đáp thắc mắc<br/><span>về FraudGuard</span></h2>
+            <p className={s.centerSub}>Những điều doanh nghiệp thường quan tâm về cách nhận diện giao dịch bất thường và quy trình triển khai.</p>
           </div>
 
           <div className={`${s.faqCard} ${s.revealZoomIn}`} data-reveal>
@@ -586,13 +586,13 @@ export default function Landing() {
 
       <section className={`${s.container} ${s.finalCta} ${s.scrollSection} ${s.revealZoomIn}`} id="lien-he" data-scroll-section data-reveal aria-labelledby="final-heading">
         <div>
-          <p className={s.sectionNumber}>LIÊN HỆ VỚI CHÚNG TÔI</p>
-          <h2 id="final-heading">Bắt đầu chuẩn hóa quy trình<br/><span>kiểm soát rủi ro giao dịch ngay hôm nay</span></h2>
-          <p className={s.contactMeta}>Email: <strong>contact@fraudguard.vn</strong> · Hotline tư vấn: <strong>1900 6868</strong> (08:30 - 18:00)</p>
+          <p className={s.sectionNumber}>BẮT ĐẦU VỚI FRAUDGUARD</p>
+          <h2 id="final-heading">Bảo vệ an toàn doanh thu<br/><span>và giao dịch của bạn ngay hôm nay</span></h2>
+          <p className={s.contactMeta}>Email: <strong>contact@fraudguard.vn</strong> · Hotline hỗ trợ: <strong>1900 6868</strong> (08:30 - 18:00)</p>
         </div>
         <div>
           <a className={s.primary} href="mailto:contact@fraudguard.vn">Liên hệ với chúng tôi <Arrow/></a>
-          <p>Nhận tư vấn kiến trúc tích hợp và lộ trình triển khai cho doanh nghiệp.</p>
+          <p>Nhận tư vấn phương án kiểm soát rủi ro phù hợp nhất cho doanh nghiệp của bạn.</p>
         </div>
       </section>
     </main>
@@ -600,10 +600,10 @@ export default function Landing() {
     <footer className={`${s.container} ${s.footer} ${s.scrollSection}`} data-scroll-section>
       <div className={`${s.footerLeft} ${s.revealSlideLeft}`} data-reveal>
         <a className={s.brand} href="#" aria-label="FraudGuard, về đầu trang"><Shield small/><span>Fraud<span className={s.brandLight}>Guard</span></span></a>
-        <p>Nền tảng giám sát giao dịch bất thường và quản lý hồ sơ điều tra dành cho doanh nghiệp SME.</p>
+        <p>Nền tảng hỗ trợ nhận diện giao dịch bất thường và quản lý hồ sơ kiểm soát rủi ro cho doanh nghiệp.</p>
       </div>
       <div className={`${s.footerRight} ${s.revealSlideRight} ${s.delay1}`} data-reveal>
-        <span>Phân quyền rõ trách nhiệm. Xử lý dựa trên bằng chứng.</span>
+        <span>Phân định rõ trách nhiệm. Xử lý dựa trên bằng chứng minh bạch.</span>
         <a href="#giai-dap">Câu hỏi thường gặp</a>
         <a href="#">Về đầu trang ↑</a>
       </div>
