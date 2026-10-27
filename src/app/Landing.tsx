@@ -267,7 +267,7 @@ export default function Landing() {
           <article className={`${s.featureCard} ${s.revealSlideRight} ${s.delay2}`} data-reveal>
             <div className={s.featureTop}>
               <span className={s.featureNum}>03</span>
-              <h3>Không gian làm việc đa tenant độc lập</h3>
+              <h3>Không gian làm việc độc lập</h3>
               <p>Mỗi doanh nghiệp sở hữu một khu vực làm việc riêng biệt, dữ liệu được bảo mật tách biệt hoàn toàn, tự quản lý nhân viên và thiết lập phạm vi theo dõi riêng.</p>
             </div>
           </article>
